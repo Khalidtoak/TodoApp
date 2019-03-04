@@ -12,13 +12,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //initialize array list
         todos = ArrayList()
+        //add stuffs to the list
         addToList()
+        //Set the layout manager to the linear layou manager with a vertical orientation
         recycler_view.layoutManager = LinearLayoutManager(this@MainActivity
         , RecyclerView.VERTICAL, false)
+        //set the adapter to the todoAdapter class
         recycler_view.adapter = TodoAdapter(this@MainActivity, todos)
     }
     private fun addToList(){
+        //Add items to the list
         todos.addAll(Arrays.asList(
             "Brush","Bathe",
             "Eat", "Sleep",
