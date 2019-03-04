@@ -2,12 +2,15 @@ package khalid.com.todoapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var todos: MutableList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +23,13 @@ class MainActivity : AppCompatActivity() {
         recycler_view.layoutManager = LinearLayoutManager(this@MainActivity
         , RecyclerView.VERTICAL, false)
         //set the adapter to the todoAdapter class
-        recycler_view.adapter = TodoAdapter(this@MainActivity, todos)
+        recycler_view.adapter = TodoAdapter(this@MainActivity, todos, object  : RecyclerViewClickHandler{
+            override fun onViewClicked() {
+                Log.i("Tag", "Got here")
+                Toast.makeText(this@MainActivity, "This is clicked", Toast.LENGTH_LONG).show()
+            }
+
+        })
     }
     private fun addToList(){
         //Add items to the list

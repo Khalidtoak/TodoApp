@@ -1,9 +1,12 @@
 package khalid.com.todoapp
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
 
@@ -13,7 +16,9 @@ import kotlinx.android.synthetic.main.recycler_view_item.view.*
  * for each item in the recycler view. We pass in the
  * context and the list of strings we want to display which will later be defined in the activity
  */
-class TodoAdapter(private val context: Context, private val todos : MutableList<String>)
+class TodoAdapter(val context: Context, val todos : MutableList<String>,
+                 val recyclerViewClickHandler: RecyclerViewClickHandler
+)
     : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     /**
      * The onCreate view holder is a method that creates new view holders when there are no existing view holders
@@ -22,8 +27,9 @@ class TodoAdapter(private val context: Context, private val todos : MutableList<
      * **/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         //The attach to root parameter is set to false here will explain the meaning in class:)
-        return TodoViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_item,
+        val view =  TodoViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_item,
             parent, false))
+        return view
     }
 /**
  * returns the number of items in the list being displayed**/
@@ -39,8 +45,21 @@ class TodoAdapter(private val context: Context, private val todos : MutableList<
 
     //The view holder is the class that holds the text view in the recycler view item list,
     // This class extends the viewholder class
-    class TodoViewHolder(view : View) : RecyclerView.ViewHolder(view) {
+   inner class TodoViewHolder(private val view : View) : RecyclerView.ViewHolder(view)
+    , View.OnClickListener{
+
         //get the text from the recycler view item layout
         val textView = view.text!!
+        init {
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+
+            recyclerViewClickHandler.onViewClicked()
+
+        }
+
+
     }
 }
