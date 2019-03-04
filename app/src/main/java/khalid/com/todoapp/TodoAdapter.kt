@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.recycler_view_item.view.*
  * TodoAdapter class connects the view holder to the exact layout that it will be using
  * for each item in the recycler view. We pass in the
  * context and the list of strings we want to display which will later be defined in the activity
+ * make sure your TodoAdapter accepts recyclerview click handler as a parameter
  */
 class TodoAdapter(val context: Context, val todos : MutableList<String>,
                  val recyclerViewClickHandler: RecyclerViewClickHandler
@@ -51,11 +52,12 @@ class TodoAdapter(val context: Context, val todos : MutableList<String>,
         //get the text from the recycler view item layout
         val textView = view.text!!
         init {
+            //inside the init block, set the click listener of the inflated layout to this
             view.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-
+            //call the onView clicked method in the onClick
             recyclerViewClickHandler.onViewClicked()
 
         }

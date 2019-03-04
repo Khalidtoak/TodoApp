@@ -22,7 +22,10 @@ class MainActivity : AppCompatActivity() {
         //Set the layout manager to the linear layou manager with a vertical orientation
         recycler_view.layoutManager = LinearLayoutManager(this@MainActivity
         , RecyclerView.VERTICAL, false)
-        //set the adapter to the todoAdapter class
+        /*set the adapter to the todoAdapter class
+        //set the adapter to the todoAdapter and make sure you pass
+        // the recycler view click handler as a parameter.
+        here you will specify what the click handler should be doing*/
         recycler_view.adapter = TodoAdapter(this@MainActivity, todos, object  : RecyclerViewClickHandler{
             override fun onViewClicked() {
                 Log.i("Tag", "Got here")
