@@ -14,5 +14,4 @@
             android:text="Hello World!"
             android:layout_margin="8dp"
             android:id="@+id/recycler_view"/>
-
 </FrameLayout>

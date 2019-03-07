@@ -17,8 +17,9 @@ import kotlinx.android.synthetic.main.recycler_view_item.view.*
  * context and the list of strings we want to display which will later be defined in the activity
  * make sure your TodoAdapter accepts recyclerview click handler as a parameter
  */
-class TodoAdapter(val context: Context, val todos : MutableList<String>,
-                 val recyclerViewClickHandler: RecyclerViewClickHandler
+class TodoAdapter(
+    private val context: Context, private val todos : MutableList<String>,
+    val recyclerViewClickHandler: RecyclerViewClickHandler
 )
     : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     /**
@@ -61,7 +62,6 @@ class TodoAdapter(val context: Context, val todos : MutableList<String>,
             recyclerViewClickHandler.onViewClicked()
 
         }
-
-
     }
+
 }

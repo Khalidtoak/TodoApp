@@ -2,6 +2,7 @@ package khalid.com.todoapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         //initialize array list
         todos = ArrayList()
         //add stuffs to the list
@@ -22,6 +24,10 @@ class MainActivity : AppCompatActivity() {
         //Set the layout manager to the linear layou manager with a vertical orientation
         recycler_view.layoutManager = LinearLayoutManager(this@MainActivity
         , RecyclerView.VERTICAL, false)
+        //text.text = "rfuvakfbluelnnfv/"
+        //viemodel.setcsjbd = 20
+        
+
         /*set the adapter to the todoAdapter class
         //set the adapter to the todoAdapter and make sure you pass
         // the recycler view click handler as a parameter.
@@ -63,4 +69,10 @@ class MainActivity : AppCompatActivity() {
             , "Sleep again", "Eat again","End:"
         ))
     }
+
+    override fun onStart() {
+        super.onStart()
+
+    }
+
 }
