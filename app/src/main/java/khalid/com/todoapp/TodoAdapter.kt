@@ -1,13 +1,11 @@
 package khalid.com.todoapp
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import khalid.com.todoapp.database.TodoEntity
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
 
 /**
@@ -18,7 +16,7 @@ import kotlinx.android.synthetic.main.recycler_view_item.view.*
  * make sure your TodoAdapter accepts recyclerview click handler as a parameter
  */
 class TodoAdapter(
-    private val context: Context, private val todos : MutableList<String>,
+    private val context: Context, private val todos  : List<TodoEntity>,
     val recyclerViewClickHandler: RecyclerViewClickHandler
 )
     : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
@@ -29,9 +27,8 @@ class TodoAdapter(
      * **/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         //The attach to root parameter is set to false here will explain the meaning in class:)
-        val view =  TodoViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_item,
-            parent, false))
-        return view
+        return TodoViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_item,
+        parent, false))
     }
 /**
  * returns the number of items in the list being displayed**/
@@ -42,7 +39,10 @@ class TodoAdapter(
  * Here we specify what we want to do with the vies in our viewHolder. The onBindView holder is the
  * one also responsible for recycling the viewHolder*/
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        holder.textView.text = todos[position]
+        holder.apply {
+            titleTextView.text = todos[position].title
+            descripionTextView.text = todos[position].content
+        }
     }
 
     //The view holder is the class that holds the text view in the recycler view item list,
@@ -51,7 +51,9 @@ class TodoAdapter(
     , View.OnClickListener{
 
         //get the text from the recycler view item layout
-        val textView = view.text!!
+        val titleTextView = view.title!!
+        val descripionTextView = view.content!!
+
         init {
             //inside the init block, set the click listener of the inflated layout to this
             view.setOnClickListener(this)
