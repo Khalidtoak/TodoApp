@@ -1,6 +1,8 @@
 package khalid.com.todoapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,15 +24,29 @@ class AddTodoActivity : AppCompatActivity() {
                 Snackbar.make(view, "This fields should't be empty", Snackbar.LENGTH_SHORT).show()
             }
             else{
-                addTodo(title, content )
+               TodoAsyncTask().execute(title, content)
                 Log.i("TAG", "TodoAdded")
             }
 
         }
     }
     private fun addTodo(title :String, content : String){
+        //add atodo
         mdatabase!!.getTodoDao().insertTodo(TodoEntity(title, content))
-        startActivity(Intent(this@AddTodoActivity, MainActivity::class.java))
-        finishAffinity()
+    }
+    @SuppressLint("StaticFieldLeak")
+    inner class TodoAsyncTask : AsyncTask<String, Unit, Unit>() {
+        override fun doInBackground(vararg params: String?) {
+            //add params in the background
+            addTodo(params[0]!!, params[1]!!)
+        }
+
+        override fun onPostExecute(result: Unit?) {
+            super.onPostExecute(result)
+                //Start main activity and remove all activities in the back stack
+            startActivity(Intent(this@AddTodoActivity, MainActivity::class.java))
+            finishAffinity()
+        }
+
     }
 }

@@ -7,13 +7,17 @@ import androidx.room.RoomDatabase
 
 /**
  * Created by ${KhalidToak} on 3/8/2019.
+ *todoDb is the class that extends room database and annotated with @Database
+ * this class will be used to initialize the room database with a database name
+ * Here you also specify the entities, database versions and an export schema
  */
 const val DATABASE_NAME = "todo_db"
 @Database(entities = [TodoEntity::class], version = 1, exportSchema = false)
 abstract class TodoDatabase : RoomDatabase(){
+    //abstract function that returns  the todoDao
     abstract fun getTodoDao() : TodoDao
 
-
+//inside this companion object , we initialize the database
     companion object {
         private var databaseInstance : TodoDatabase? = null
         fun initializeDb(context: Context) : TodoDatabase? {
@@ -21,7 +25,7 @@ abstract class TodoDatabase : RoomDatabase(){
                 databaseInstance = Room.databaseBuilder(
                     context.applicationContext,
                     TodoDatabase::class.java, DATABASE_NAME
-                ).allowMainThreadQueries().build()
+                ).build()
             }
             return databaseInstance
         }

@@ -4,6 +4,8 @@ import androidx.room.*
 
 /**
  * Created by ${KhalidToak} on 3/8/2019.
+ * The dao is the class that gives us access to the Entity
+ * here we create functions to insert, update and delete todos
  */
 @Dao
 interface TodoDao {
